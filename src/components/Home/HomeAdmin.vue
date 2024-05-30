@@ -2,8 +2,8 @@
   <el-container class="home-container">
     <!-- 头部区域 -->
     <el-header>
-      <div>
-        <!-- <img src="../assets/heima.png" alt="" /> -->
+      <div class="header-with-padding">
+        <img :src="require('@/assets/images/logo.png')" alt="" width="30" height="30"/>
         <span>欢迎登录图书管理系统</span>
         <span style="color: #ccc; font-size: 16px">系统管理人员页面</span>
       </div>
@@ -42,24 +42,16 @@
       <el-aside :width="isCollapse ? '64px' : '200px'">
         <div class="toggle-button" @click="toggleCollapse">|||</div>
         <!-- 侧边栏菜单区域 -->
-        <el-menu
-          :default-active="activePath"
-          class="el-menu-vertical-demo"
-          background-color="#fff"
-          text-color="black"
-          active-text-color="#ffd04b"
-          :router="true"
-          :collapse="isCollapse"
-          :collapse-transition="false"
-        >
+        <el-menu :default-active="activePath" class="el-menu-vertical-demo" background-color="#545c64" text-color="#fff"
+                 active-text-color="#ffd04b" :router="true" :collapse="isCollapse" :collapse-transition="false" style="height: 100%;">
           <el-menu-item index="bookmanage" @click="saveNavState('bookmanage')">
             <i class="el-icon-notebook-1"></i>
             <span slo="title">书籍管理</span>
           </el-menu-item>
-          <el-menu-item index="booktype" @click="saveNavState('booktype')">
+<!--          <el-menu-item index="booktype" @click="saveNavState('booktype')">
             <i class="el-icon-notebook-2"></i>
             <span slot="title">书籍类型</span>
-          </el-menu-item>
+          </el-menu-item>-->
           <el-menu-item
             index="statementmanage"
             @click="saveNavState('statementmanage')"
@@ -108,23 +100,6 @@
       <el-main>
         <!-- 路由占位符 -->
         <router-view></router-view>
-        <div class="footer">
-          <el-popover placement="top-start" :width="150" trigger="hover">
-            <p slot="reference"> 联系作者|   ©2022-2023 By 小白条<br /> </p>
-            <img
-                src="https://pic.yupi.icu/5563/202312061315664.png"
-                style="height: 100px; width: 100px"
-            />
-          </el-popover>
-          <a href="https://beian.miit.gov.cn">备案号:浙ICP备2023044565号-2 |</a>
-          <a href="https://beian.mps.gov.cn/#/query/webSearch">
-            <img
-                src="https://xxx.xiaobaitiao.icu/img/icu/202312211243636.png"
-                style="height: 16px; width: 16px; margin: 5px 0px 0px 5px"
-            />
-            浙公网安备33028202001002号
-          </a>
-        </div>
       </el-main>
     </el-container>
   </el-container>
@@ -190,7 +165,7 @@ export default {
 };
 </script>
 
-  <style lang="less" scoped>
+<style lang="less" scoped>
 .footer {
   position: fixed;
   bottom: 0px;
@@ -199,6 +174,10 @@ export default {
   a {
     color:#ccc;
   }
+}
+
+.header-with-padding {
+  padding-left: 12px; /* 根据需要调整左侧空白区域的大小 */
 }
 .home-container {
   height: 100%;

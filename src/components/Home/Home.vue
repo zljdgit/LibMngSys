@@ -2,9 +2,9 @@
   <el-container class="home-container">
     <!-- 头部区域 -->
     <el-header>
-      <div>
-        <!-- <img src="../assets/heima.png" alt="" /> -->
-        <span>欢迎登录图书管理系统</span>
+      <div class="header-with-padding">
+        <img :src="require('@/assets/images/logo.png')" alt="" width="30" height="30"/>
+        <span>欢迎登录AI图书管理系统</span>
         <span style="color: #ccc; font-size: 16px">借阅者界面</span>
       </div>
       <div>
@@ -40,8 +40,8 @@
       <el-aside :width="isCollapse ? '64px' : '200px'">
         <div class="toggle-button" @click="toggleCollapse">|||</div>
         <!-- 侧边栏菜单区域 -->
-        <el-menu :default-active="activePath" class="el-menu-vertical-demo" background-color="#fff" text-color="black"
-          active-text-color="#ffd04b" :router="true" :collapse="isCollapse" :collapse-transition="false">
+        <el-menu :default-active="activePath" class="el-menu-vertical-demo" background-color="#545c64" text-color="#fff"
+          active-text-color="#ffd04b" :router="true" :collapse="isCollapse" :collapse-transition="false" style="height: 100%;">
           <el-menu-item index="index" @click="saveNavState('index')">
             <i class="iconfont icon-shouyefill"></i>
             <span slo="title">首页</span>
@@ -70,10 +70,10 @@
             <i class="iconfont icon-weizhangchaxun"></i>
             <span slot="title">违章信息</span>
           </el-menu-item>
-          <el-menu-item index="comment" @click="saveNavState('comment')">
+<!--          <el-menu-item index="comment" @click="saveNavState('comment')">
             <i class="iconfont icon-liuyan"></i>
             <span slot="title">读者留言</span>
-          </el-menu-item>
+          </el-menu-item>-->
           <el-menu-item index="intelligent" @click="saveNavState('intelligent')">
             <i class="el-icon-monitor"></i>
             <span slot="title">智能推荐</span>
@@ -88,23 +88,6 @@
       <el-main>
         <!-- 路由占位符 -->
         <router-view></router-view>
-        <div class="footer">
-          <el-popover placement="top-start" :width="150" trigger="hover">
-            <p slot="reference"> 联系作者|   ©2022-2023 By 小白条<br /> </p>
-            <img
-                src="https://pic.yupi.icu/5563/202312061315664.png"
-                style="height: 100px; width: 100px"
-            />
-          </el-popover>
-          <a href="https://beian.miit.gov.cn">备案号:浙ICP备2023044565号-2 |</a>
-          <a href="https://beian.mps.gov.cn/#/query/webSearch">
-            <img
-                src="https://xxx.xiaobaitiao.icu/img/icu/202312211243636.png"
-                style="height: 16px; width: 16px; margin: 5px 0px 0px 5px"
-            />
-            浙公网安备33028202001002号
-          </a>
-        </div>
       </el-main>
     </el-container>
   </el-container>
@@ -182,6 +165,10 @@ export default {
 </script>
 
 <style lang="less" scoped>
+.header-with-padding {
+  padding-left: 12px; /* 根据需要调整左侧空白区域的大小 */
+}
+
 .footer {
   position: fixed;
   bottom: 0px;
