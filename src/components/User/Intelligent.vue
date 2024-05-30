@@ -67,6 +67,7 @@ export default {
       }
       if (this.inputMessage.trim() !== "") {
         var userId = window.sessionStorage.getItem("userId");
+        // push 新的消息对象
         this.messages.push({
           id: Date.now(),
           inputMessage: this.inputMessage,
@@ -82,8 +83,9 @@ export default {
           message:"文本输入越长，接口调用时间越长，请耐心等待10秒左右",
           duration:2500
         })
+        // 发起 Post 请求，请求体携带当前消息对象
         const {data: res} = await this.$http.post("user/ai_intelligent", this.message)
-
+        // 判断响应状态码是否为 200
         if (res.status !== 200) {
           this.loading = false;
           return this.$message.error(res.msg);
@@ -92,11 +94,13 @@ export default {
           message: res.msg,
           duration: 1500
         })
+        // 将新数据 push 到 messages 数组
         this.messages.push({
           id: Date.now(),
           aiResult: res.data,
           userId: userId
         });
+        // 停止加载状态
         this.loading = false;
 
       }
@@ -106,15 +110,20 @@ export default {
      * @returns {Promise<void>}
      */
     async getHistoryRecords() {
+      // 从浏览器的 SessionStorage 中获取该用户的 id
       var userId = window.sessionStorage.getItem("userId");
+      // 拼接 id 发送 get 请求
       const {data: res} = await this.$http.get("user/ai_list_information/" + userId)
+      // 判断响应状态码是否为 200 ，不是抛出异常
       if (res.status !== 200) {
         return this.$message.error(res.msg)
       }
+      // 200 表示获取接口数据成功，提示获取成功
       this.$message.success({
         message: res.msg,
         duration: 1500
       })
+      // 利用增强 for + Lambda 表达式简写将获取内容 push 到数组
       res.data.forEach((item) => {
         this.messages.push(item);
       })
