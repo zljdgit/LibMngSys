@@ -164,16 +164,19 @@ export default {
       this.file = file.raw;
     },
     async onSubmit() {
+      // 如果已经在提交中，直接返回
       if (this.submitting) {
         return;
       }
       this.submitting = true;
+      // 利用 formData 传输 file
       const formData = new FormData();
-
       if (this.file) {
         formData.append("file", this.file);
       }
+      // 取出 adminId
       this.form.adminId = parseInt(window.sessionStorage.getItem("adminId"));
+      // for 循环依次 push
       for (const key in this.form) {
         formData.append(key, this.form[key]);
       }
@@ -181,13 +184,16 @@ export default {
         message: "接口调用花费时间在30秒左右，AI模型暂时不稳定",
         duration: 2500,
       });
+      // 发起 post 请求，并且请求头带上 Content-Type 为 Multipart/form-data
       const { data: res } = await this.$http.post("/admin/gen", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
       });
       if (res.status !== 200) {
+        // 取消提交状态
         this.submitting = false;
+        // 提示错误信息
         return this.$message.error({
           message: res.msg,
           duration: 1500,
